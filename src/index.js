@@ -1,5 +1,5 @@
-const gamesURL = "http://localhost:3000/games";
-const usersURL = "http://localhost:3000/users";
+const gamesURL = "https://tankcoin-api.herokuapp.com/games";
+const usersURL = "https://tankcoin-api.herokuapp.com/users";
 
 TIMEINTERVAL = 0;
 CURRENTPRICE = 0;
