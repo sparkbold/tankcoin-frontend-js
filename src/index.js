@@ -435,9 +435,6 @@ function showLeaderBoard(data) {
       <div class="mdl-grid">
       <div id="leaderboard" class="mdl-cell mdl-cell--6-col"></div>
       <div id="results" class="mdl-cell mdl-cell--6-col"></div>
-      <div id="price-chart" class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col"></div>
-      <div id="value-chart" class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col"></div>
-      </div>
       </main>
   </div>
 
