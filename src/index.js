@@ -107,7 +107,7 @@ function buttonEventListener() {
         SHARESBOUGHT++;
         updateStats();
       } else {
-        console.log("You dont have enough cash");
+        alert("You dont have enough cash");
       }
 
       // console.log(priceIndexData);
@@ -130,7 +130,7 @@ function buttonEventListener() {
         // console.log(COSTBASIS, Math.round(CASHVALUE));
         updateStats();
       } else {
-        console.log("You dont have enough cash");
+        alert("You dont have enough cash");
       }
     }
 
@@ -147,7 +147,7 @@ function buttonEventListener() {
         // console.log(COSTBASIS, Math.round(CASHVALUE));
         updateStats();
       } else {
-        console.log("You dont have stock to sell");
+        alert("You dont have stock to sell");
       }
     }
 
@@ -162,7 +162,7 @@ function buttonEventListener() {
         // console.log(COSTBASIS, Math.round(CASHVALUE));
         updateStats();
       } else {
-        console.log("You dont have stock to sell");
+        alert("You dont have stock to sell");
       }
     }
   });
@@ -268,7 +268,7 @@ function render(data) {
       dialog.showModal();
       setTimeout(() => {
         dialog.close();
-      }, 2000);
+      }, 1000);
     }
 
     if (i === 61) {
@@ -364,17 +364,19 @@ function getData(dataName) {
 
 function postGame() {
   //Update the content in the data base to include the ending value of your portfolio
-  fetch(gamesURL + "/" + getData("game"), {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      net_value: PORTFOLIOVALUES[PORTFOLIOVALUES.length - 1],
-      end_price: CURRENTPRICE,
-      id: getData("game")
-    })
-  }).then(() => endGame());
+  if (CURRENTPRICE) {
+    fetch(gamesURL + "/" + getData("game"), {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        net_value: PORTFOLIOVALUES[PORTFOLIOVALUES.length - 1],
+        end_price: CURRENTPRICE,
+        id: getData("game")
+      })
+    }).then(() => endGame());
+  }
 }
 
 function endGame() {
@@ -453,9 +455,11 @@ function showLeaderBoard(data) {
           <div class="mdl-card__supporting-text">
             <ul class="demo-list-icon mdl-list">${data
               .map(game => {
-                return `<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>${
-                  game.user_name
-                } - $${game.net_value.toFixed(2)}</span></li>`;
+                return game.net_value
+                  ? `<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>${
+                      game.user_name
+                    } - $${game.net_value.toFixed(2)}</span></li>`
+                  : null;
               })
               .join("")}
             </ul>
